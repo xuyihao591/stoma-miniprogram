@@ -10,7 +10,17 @@ Page({
     } else {
       this.loadList()
     }
+    this.loadDoctorAvatar()
   },
+  onShow() {
+    this.loadList()
+  },
+  loadDoctorAvatar() {
+    const app = getApp()
+    const userInfo = app.globalData.userInfo || {}
+    this.setData({ doctorAvatar: userInfo.avatar || '' })
+  },
+
   async loadList() {
     try {
       const data = await api.getDoctorPatients({})
@@ -57,5 +67,6 @@ Page({
     })
   },
   onRefresh() { this.setData({ refreshing: true }); this.loadList() },
-  goHistory(e) { wx.navigateTo({ url: `/pages/patient/followup/followup?patientId=${e.currentTarget.dataset.id}` }) }
+  goHistory(e) { wx.navigateTo({ url: `/pages/doctor/detail/detail?id=${e.currentTarget.dataset.id}` }) },
+  goProfile() { wx.navigateTo({ url: '/pages/doctor/profile/profile' }) }
 })

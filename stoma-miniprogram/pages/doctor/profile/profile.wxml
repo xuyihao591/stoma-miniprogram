@@ -1,0 +1,81 @@
+<!-- pages/doctor/profile/profile.wxml -->
+<view class="profile-page">
+  <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:100vh">
+    <!-- 顶部头像区 -->
+    <view class="profile-hero">
+      <image class="p-avatar" src="{{doctorInfo.avatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+      <text class="p-name">{{doctorInfo.name || '医生'}}</text>
+      <text class="p-role-tag">医生</text>
+    </view>
+
+    <!-- 医生信息 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>基本信息</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">科室</text>
+        <text class="info-value">{{doctorInfo.department || '未设置'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">职称</text>
+        <text class="info-value">{{doctorInfo.title || '未设置'}}</text>
+      </view>
+      <view class="info-row">
+        <text class="info-label">联系电话</text>
+        <text class="info-value">{{doctorInfo.phone || '未设置'}}</text>
+      </view>
+    </view>
+
+    <!-- 统计概览 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>工作统计</text>
+      </view>
+      <view class="stats-row">
+        <view class="stat-item">
+          <text class="stat-num">{{stats.patientCount || 0}}</text>
+          <text class="stat-label">管理患者</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{stats.pendingCount || 0}}</text>
+          <text class="stat-label">待审核</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{stats.todayReview || 0}}</text>
+          <text class="stat-label">今日已审</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作入口 -->
+    <view class="action-list card">
+      <view class="action-row" bindtap="goPatients">
+        <text class="action-icon">👥</text>
+        <text class="action-label">患者管理</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="action-row" bindtap="goStats">
+        <text class="action-icon">📊</text>
+        <text class="action-label">统计分析</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="action-row" bindtap="openSettings">
+        <text class="action-icon">⚙️</text>
+        <text class="action-label">设置</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="action-row logout-row" bindtap="logout">
+        <text class="action-icon">🚪</text>
+        <text class="action-label" style="color:#E24B4A">退出登录</text>
+      </view>
+    </view>
+
+    <view style="height:60rpx"></view>
+  </scroll-view>
+</view>

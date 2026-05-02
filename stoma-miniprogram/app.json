@@ -12,7 +12,8 @@
     "pages/doctor/detail/detail",
     "pages/doctor/review/review",
     "pages/doctor/patients/patients",
-    "pages/doctor/stats/stats"
+    "pages/doctor/stats/stats",
+    "pages/doctor/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",

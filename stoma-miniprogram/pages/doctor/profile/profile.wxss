@@ -1,0 +1,69 @@
+/* pages/doctor/profile/profile.wxss */
+.profile-page { background:#F5F7FA; min-height:100vh; }
+
+.profile-hero {
+  background: linear-gradient(135deg, #0F6E56 0%, #0A5C45 100%);
+  padding: 60rpx 40rpx 50rpx;
+  display:flex; flex-direction:column; align-items:center;
+}
+.p-avatar {
+  width:140rpx; height:140rpx; border-radius:50%;
+  border:4rpx solid rgba(255,255,255,0.5);
+  background:#fff;
+}
+.p-name {
+  color:#fff; font-size:36rpx; font-weight:700;
+  margin-top:20rpx;
+}
+.p-role-tag {
+  background:rgba(255,255,255,0.25); color:#fff;
+  font-size:22rpx; padding:4rpx 20rpx;
+  border-radius:20rpx; margin-top:12rpx;
+}
+
+.card {
+  background:#fff; margin:20rpx 24rpx 0;
+  border-radius:16rpx; padding:24rpx;
+  box-shadow:0 2rpx 12rpx rgba(0,0,0,0.04);
+}
+.card-title {
+  display:flex; align-items:center;
+  font-size:30rpx; font-weight:600; color:#333;
+  margin-bottom:20rpx;
+}
+.card-title-bar {
+  width:6rpx; height:28rpx; border-radius:3rpx;
+  background:#0F6E56; margin-right:12rpx;
+}
+
+.info-row {
+  display:flex; justify-content:space-between;
+  padding:16rpx 0; font-size:28rpx;
+  border-bottom:1rpx solid #F0F0F0;
+}
+.info-row:last-child { border-bottom:none; }
+.info-label { color:#999; }
+.info-value { color:#333; }
+
+.stats-row {
+  display:flex; justify-content:space-around;
+  padding:20rpx 0;
+}
+.stat-item { text-align:center; }
+.stat-num {
+  display:block; font-size:40rpx; font-weight:700;
+  color:#0F6E56;
+}
+.stat-label { font-size:22rpx; color:#999; margin-top:8rpx; }
+
+.action-list { padding:0; }
+.action-row {
+  display:flex; align-items:center;
+  padding:28rpx 24rpx; font-size:28rpx;
+}
+.action-icon { font-size:36rpx; margin-right:20rpx; }
+.action-label { flex:1; color:#333; }
+.action-arrow { color:#ccc; font-size:32rpx; }
+.divider { height:1rpx; background:#F0F0F0; margin:0 24rpx; }
+.logout-row { justify-content:center; }
+.logout-row .action-label { flex:none; font-weight:500; }

@@ -18,3 +18,5 @@ node_modules/
 
 # 其他
 *.bak
+node_modules/
+generated-images/

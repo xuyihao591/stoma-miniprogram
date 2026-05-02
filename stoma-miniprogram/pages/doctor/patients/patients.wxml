@@ -1,5 +1,13 @@
 <!-- pages/doctor/patients/patients.wxml -->
 <view class="patients-page">
+  <!-- 顶部栏：标题 + 个人中心入口 -->
+  <view class="page-header">
+    <text class="header-title">患者管理</text>
+    <view class="header-profile-btn" bindtap="goProfile">
+      <image class="header-avatar" src="{{doctorAvatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+    </view>
+  </view>
+
   <view class="search-bar-wrap">
     <input class="search-input" placeholder="搜索患者姓名..." bindinput="onSearch" value="{{searchText}}"/>
   </view>
