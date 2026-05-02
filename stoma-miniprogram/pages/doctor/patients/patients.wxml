@@ -1,0 +1,27 @@
+<!-- pages/doctor/patients/patients.wxml -->
+<view class="patients-page">
+  <view class="search-bar-wrap">
+    <input class="search-input" placeholder="搜索患者姓名..." bindinput="onSearch" value="{{searchText}}"/>
+  </view>
+
+  <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:calc(100vh - 100rpx)"
+    refresher-enabled bindrefresherrefresh="onRefresh" refresher-triggered="{{refreshing}}">
+
+    <view class="patient-card" wx:for="{{filteredList}}" wx:key="id" bindtap="goHistory" data-id="{{item.id}}">
+      <image class="pc-avatar" src="{{item.avatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+      <view class="pc-body">
+        <view class="pc-top">
+          <text class="pc-name">{{item.name}}</text>
+          <view class="tag {{item.latestTag.cls}}">{{item.latestTag.text}}</view>
+        </view>
+        <text class="pc-meta">{{item.stomaType}} · 已随访 {{item.visitCount}} 次</text>
+        <text class="pc-last">最近：{{item.lastVisitStr}}</text>
+      </view>
+      <text class="pc-arrow">›</text>
+    </view>
+
+    <view wx:if="{{filteredList.length === 0}}" class="empty-state">
+      <text class="empty-text">暂无患者数据</text>
+    </view>
+  </scroll-view>
+</view>

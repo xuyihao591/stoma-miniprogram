@@ -1,0 +1,12 @@
+/* pages/doctor/patients/patients.wxss */
+.patients-page { background: #F5F7FA; min-height: 100vh; }
+.search-bar-wrap { padding: 16rpx 24rpx; background: #fff; border-bottom: 1px solid rgba(29,158,117,0.1); }
+.search-input { height: 72rpx; background: #F5F7FA; border-radius: 36rpx; padding: 0 28rpx; font-size: 28rpx; width: 100%; box-sizing: border-box; }
+.patient-card { background: #fff; margin: 16rpx 24rpx 0; border-radius: 20rpx; padding: 24rpx; display: flex; align-items: center; gap: 20rpx; }
+.pc-avatar { width: 80rpx; height: 80rpx; border-radius: 40rpx; background: #E1F5EE; flex-shrink: 0; }
+.pc-body { flex: 1; }
+.pc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8rpx; }
+.pc-name { font-size: 30rpx; font-weight: 500; color: #1A2332; }
+.pc-meta { display: block; font-size: 24rpx; color: #8A9BB0; margin-bottom: 4rpx; }
+.pc-last { display: block; font-size: 23rpx; color: #B4B2A9; }
+.pc-arrow { font-size: 36rpx; color: #B4B2A9; }

@@ -1,0 +1,112 @@
+<!-- pages/patient/followup/followup.wxml - 随访记录页 -->
+<view class="followup-page">
+  <!-- Tab 切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'list' ? 'active' : ''}}" bindtap="switchTab" data-tab="list">记录列表</view>
+    <view class="tab-item {{activeTab === 'trend' ? 'active' : ''}}" bindtap="switchTab" data-tab="trend">趋势对比</view>
+  </view>
+
+  <!-- 列表模式 -->
+  <scroll-view wx:if="{{activeTab === 'list'}}" scroll-y style="height:calc(100vh - 88rpx)" enhanced show-scrollbar="{{false}}"
+    bindscrolltolower="loadMore" refresher-enabled bindrefresherrefresh="onRefresh" refresher-triggered="{{refreshing}}">
+    <view wx:if="{{list.length === 0 && !loading}}" class="empty-state">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">暂无随访记录</text>
+      <text style="font-size:24rpx;color:#B4B2A9;margin-top:8rpx">提交首次评估后记录将出现在这里</text>
+    </view>
+
+    <view class="record-card" wx:for="{{list}}" wx:key="id" bindtap="goReport" data-id="{{item.id}}">
+      <view class="record-left">
+        <image class="record-thumb" src="{{item.imageUrl || '/images/placeholder.png'}}" mode="aspectFill"/>
+      </view>
+      <view class="record-body">
+        <view class="record-top">
+          <text class="record-date">{{item.dateStr}}</text>
+          <view class="tag {{item.statusTag.cls}}">{{item.statusTag.text}}</view>
+        </view>
+        <view class="record-metrics">
+          <text>直径 {{item.diameter}}mm</text>
+          <text>高度 {{item.height}}mm</text>
+        </view>
+        <view class="record-bottom">
+          <text class="confirm-badge {{item.expertConfirmed ? '' : 'unconfirmed'}}">
+            {{item.expertConfirmed ? '专家已确认' : '待专家确认'}}
+          </text>
+          <text class="record-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading-wrap">
+      <text>加载中...</text>
+    </view>
+    <view wx:if="{{noMore && list.length > 0}}" style="text-align:center;padding:32rpx;color:#B4B2A9;font-size:24rpx">
+      没有更多记录了
+    </view>
+  </scroll-view>
+
+  <!-- 趋势对比模式 -->
+  <scroll-view wx:elif="{{activeTab === 'trend'}}" scroll-y style="height:calc(100vh - 88rpx)" enhanced>
+    <view class="trend-section">
+      <!-- 时间范围选择 -->
+      <view class="range-picker">
+        <view class="range-item {{selectedRange === 30 ? 'active' : ''}}" bindtap="setRange" data-range="{{30}}">近30天</view>
+        <view class="range-item {{selectedRange === 90 ? 'active' : ''}}" bindtap="setRange" data-range="{{90}}">近90天</view>
+        <view class="range-item {{selectedRange === 180 ? 'active' : ''}}" bindtap="setRange" data-range="{{180}}">近半年</view>
+      </view>
+
+      <!-- 指标选择 -->
+      <scroll-view scroll-x class="metric-tabs">
+        <view class="metric-tab-list">
+          <view
+            class="metric-tab {{selectedMetric === item.key ? 'active' : ''}}"
+            wx:for="{{metricOptions}}"
+            wx:for-item="item"
+            wx:key="key"
+            bindtap="setMetric"
+            data-key="{{item.key}}"
+          >{{item.label}}</view>
+        </view>
+      </scroll-view>
+
+      <!-- 简易趋势图（canvas） -->
+      <view class="card" style="margin:0 24rpx 24rpx">
+        <canvas
+          type="2d"
+          id="trendCanvas"
+          style="width:100%;height:400rpx"
+          bindtouchstart="onChartTouch"
+        />
+        <view class="chart-legend">
+          <view class="legend-dot" style="background:#4A90E2"></view>
+          <text class="legend-label">{{selectedMetricLabel}}</text>
+        </view>
+      </view>
+
+      <!-- 数据摘要 -->
+      <view class="card" style="margin:0 24rpx 24rpx" wx:if="{{trendSummary}}">
+        <view class="card-title">
+          <view class="card-title-bar"></view>
+          <text>趋势摘要</text>
+        </view>
+        <view class="summary-grid">
+          <view class="summary-item">
+            <text class="summary-label">最新值</text>
+            <text class="summary-value">{{trendSummary.latest}}</text>
+          </view>
+          <view class="summary-item">
+            <text class="summary-label">变化量</text>
+            <text class="summary-value {{trendSummary.changePositive ? 'val-up' : 'val-down'}}">
+              {{trendSummary.change}}
+            </text>
+          </view>
+          <view class="summary-item">
+            <text class="summary-label">评估次数</text>
+            <text class="summary-value">{{trendSummary.count}} 次</text>
+          </view>
+        </view>
+        <text class="summary-ai">{{trendSummary.aiComment}}</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

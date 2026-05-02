@@ -1,0 +1,99 @@
+<!-- pages/patient/profile/profile.wxml - 我的档案 -->
+<view class="profile-page">
+  <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:100vh">
+    <!-- 顶部头像区 -->
+    <view class="profile-hero">
+      <image class="p-avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+      <text class="p-name">{{userInfo.name || '未填写姓名'}}</text>
+      <text class="p-role-tag">患者</text>
+    </view>
+
+    <!-- 基本信息 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>基本信息</text>
+        <text class="edit-btn" bindtap="editBasic">编辑</text>
+      </view>
+      <view class="info-row" wx:for="{{basicFields}}" wx:key="key">
+        <text class="info-label">{{item.label}}</text>
+        <text class="info-value {{item.value ? '' : 'empty'}}">{{item.value || '未填写'}}</text>
+      </view>
+    </view>
+
+    <!-- 造口信息 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>造口信息</text>
+        <text class="edit-btn" bindtap="editStoma">编辑</text>
+      </view>
+      <view class="info-row" wx:for="{{stomaFields}}" wx:key="key">
+        <text class="info-label">{{item.label}}</text>
+        <text class="info-value {{item.value ? '' : 'empty'}}">{{item.value || '未填写'}}</text>
+      </view>
+    </view>
+
+    <!-- 既往病史 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>既往病史 / 过敏史</text>
+        <text class="edit-btn" bindtap="editHistory">编辑</text>
+      </view>
+      <view class="history-tags">
+        <view class="h-tag {{item.active ? 'h-tag-active' : ''}}" wx:for="{{historyOptions}}" wx:key="label">
+          <text>{{item.label}}</text>
+        </view>
+      </view>
+      <view class="allergy-row">
+        <text class="info-label">过敏史</text>
+        <text class="info-value">{{profile.allergy || '无'}}</text>
+      </view>
+    </view>
+
+    <!-- 我的医生 -->
+    <view class="card" wx:if="{{profile.doctorInfo}}">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>我的主治医生</text>
+      </view>
+      <view class="doctor-row">
+        <image class="doc-avatar" src="{{profile.doctorInfo.avatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+        <view class="doc-info">
+          <text class="doc-name">{{profile.doctorInfo.name}}</text>
+          <text class="doc-dept">{{profile.doctorInfo.department}}</text>
+        </view>
+        <view class="consult-btn" bindtap="goConsult">咨询</view>
+      </view>
+    </view>
+
+    <!-- 操作入口 -->
+    <view class="action-list card">
+      <view class="action-row" bindtap="goConsult">
+        <text class="action-icon">💬</text>
+        <text class="action-label">我的咨询</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="action-row" bindtap="goFollowup">
+        <text class="action-icon">📋</text>
+        <text class="action-label">随访记录</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="action-row" bindtap="openPrivacy">
+        <text class="action-icon">🔒</text>
+        <text class="action-label">隐私设置</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="divider"></view>
+      <view class="action-row logout-row" bindtap="logout">
+        <text class="action-icon">🚪</text>
+        <text class="action-label" style="color:#E24B4A">退出登录</text>
+      </view>
+    </view>
+
+    <view style="height:60rpx"></view>
+  </scroll-view>
+</view>

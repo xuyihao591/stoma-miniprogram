@@ -1,0 +1,120 @@
+/* pages/patient/profile/profile.wxss */
+.profile-page { background: #F5F7FA; }
+
+.profile-hero {
+  background: #4A90E2;
+  padding: 48rpx 32rpx 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.p-avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
+  background: rgba(255,255,255,0.3);
+  border: 4rpx solid rgba(255,255,255,0.5);
+  margin-bottom: 20rpx;
+}
+
+.p-name {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 12rpx;
+}
+
+.p-role-tag {
+  background: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.9);
+  padding: 4rpx 20rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+}
+
+.edit-btn {
+  margin-left: auto;
+  font-size: 26rpx;
+  color: #4A90E2;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1px solid rgba(74,144,226,0.08);
+  font-size: 28rpx;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-label { color: #8A9BB0; flex-shrink: 0; width: 160rpx; }
+.info-value { color: #1A2332; text-align: right; flex: 1; }
+.empty { color: #B4B2A9; }
+
+.history-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.h-tag {
+  padding: 10rpx 28rpx;
+  border-radius: 30rpx;
+  background: #F5F7FA;
+  border: 2rpx solid #D3D1C7;
+  font-size: 26rpx;
+  color: #8A9BB0;
+}
+
+.h-tag-active {
+  background: #E6F1FB;
+  border-color: #4A90E2;
+  color: #4A90E2;
+}
+
+.allergy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 28rpx;
+}
+
+.doctor-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.doc-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  background: #E1F5EE;
+}
+
+.doc-info { flex: 1; }
+.doc-name { display: block; font-size: 30rpx; font-weight: 500; color: #1A2332; }
+.doc-dept { display: block; font-size: 24rpx; color: #8A9BB0; margin-top: 4rpx; }
+
+.consult-btn {
+  background: #4A90E2;
+  color: #fff;
+  padding: 12rpx 28rpx;
+  border-radius: 28rpx;
+  font-size: 26rpx;
+}
+
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 24rpx 0;
+}
+
+.action-icon { font-size: 36rpx; }
+.action-label { flex: 1; font-size: 28rpx; color: #1A2332; }
+.action-arrow { font-size: 36rpx; color: #B4B2A9; }

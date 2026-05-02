@@ -1,0 +1,80 @@
+<!-- pages/doctor/list/list.wxml - 待审核列表 -->
+<view class="page-wrap">
+  <!-- 医生顶部栏 -->
+  <view class="doc-header">
+    <view>
+      <text class="doc-greeting">{{doctorInfo.name || '医生'}}，您好</text>
+      <text class="doc-sub">{{todayStr}} · {{pendingCount}} 条待处理</text>
+    </view>
+    <view class="stats-mini" bindtap="goStats">
+      <text class="stats-num">{{todayDoneCount}}</text>
+      <text class="stats-label">今日已处理</text>
+    </view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar">
+    <view class="filter-tabs">
+      <view class="f-tab {{sortMode === 'time' ? 'active' : ''}}" bindtap="setSort" data-sort="time">按时间</view>
+      <view class="f-tab {{sortMode === 'urgency' ? 'active' : ''}}" bindtap="setSort" data-sort="urgency">按紧急程度</view>
+    </view>
+    <view class="urgency-filter">
+      <view
+        class="uf-item {{selectedUrgency === item.key ? 'active' : ''}}"
+        wx:for="{{urgencyOptions}}"
+        wx:for-item="item"
+        wx:key="key"
+        bindtap="setUrgency"
+        data-key="{{item.key}}"
+      >{{item.label}}</view>
+    </view>
+  </view>
+
+  <scroll-view scroll-y enhanced style="flex:1;height:calc(100vh - 240rpx)" show-scrollbar="{{false}}"
+    refresher-enabled bindrefresherrefresh="onRefresh" refresher-triggered="{{refreshing}}"
+    bindscrolltolower="loadMore">
+
+    <view wx:if="{{list.length === 0 && !loading}}" class="empty-state">
+      <text style="font-size:80rpx">✓</text>
+      <text class="empty-text" style="margin-top:16rpx">暂无待审核评估</text>
+    </view>
+
+    <view class="pending-item"
+      wx:for="{{list}}"
+      wx:key="id"
+      bindtap="goDetail"
+      data-id="{{item.id}}"
+    >
+      <!-- 紧急标记 -->
+      <view class="urgency-bar urgency-{{item.urgency}}"></view>
+      <view class="pi-body">
+        <!-- 患者信息行 -->
+        <view class="pi-top">
+          <image class="pi-thumb" src="{{item.imageUrl || '/images/placeholder.png'}}" mode="aspectFill"/>
+          <view class="pi-info">
+            <view class="pi-name-row">
+              <text class="pi-name">{{item.patientName}}</text>
+              <view class="tag urgency-{{item.urgency}}">{{item.urgencyLabel}}</view>
+            </view>
+            <text class="pi-time">{{item.timeAgo}} · 等待 {{item.waitMins}} 分钟</text>
+            <text class="pi-desc">{{item.symptomDesc || '无症状描述'}}</text>
+          </view>
+        </view>
+        <!-- AI预判 -->
+        <view class="ai-pre-row">
+          <view class="ai-badge">AI</view>
+          <text class="ai-pre-text">AI预判：{{item.aiPreview}}</text>
+          <view class="tag {{item.severityTag.cls}}">{{item.severityTag.text}}</view>
+        </view>
+        <!-- 操作按钮 -->
+        <view class="pi-actions">
+          <view class="action-btn btn-detail" bindtap="goDetail" data-id="{{item.id}}">查看详情</view>
+          <view class="action-btn btn-quick" bindtap="quickApprove" data-id="{{item.id}}" catchtap="catchtap">快速确认</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{loading}}" class="loading-wrap"><text>加载中...</text></view>
+    <view wx:if="{{noMore && list.length > 0}}" style="text-align:center;padding:24rpx;font-size:24rpx;color:#B4B2A9">已全部加载</view>
+  </scroll-view>
+</view>

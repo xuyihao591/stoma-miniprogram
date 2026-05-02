@@ -1,0 +1,69 @@
+<!-- pages/patient/guide/guide.wxml - 拍摄引导页 -->
+<view class="guide-page">
+  <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:100vh">
+    <view class="guide-hero">
+      <text class="hero-title">拍摄标准指南</text>
+      <text class="hero-subtitle">按照指南拍摄，AI分析更精准</text>
+    </view>
+
+    <!-- 步骤卡片 -->
+    <view class="step-list">
+      <view class="step-card" wx:for="{{steps}}" wx:key="index">
+        <view class="step-header">
+          <view class="step-num">{{index + 1}}</view>
+          <text class="step-title">{{item.title}}</text>
+        </view>
+        <text class="step-desc">{{item.desc}}</text>
+        <view class="step-tips">
+          <view class="tip-row" wx:for="{{item.tips}}" wx:for-item="tip" wx:key="tip">
+            <view class="check-icon">✓</view>
+            <text>{{tip}}</text>
+          </view>
+        </view>
+        <view class="step-warn" wx:if="{{item.warn}}">
+          <text class="warn-icon">!</text>
+          <text>{{item.warn}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 角度示意 -->
+    <view class="card" style="margin:0 24rpx 24rpx">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>推荐拍摄角度</text>
+      </view>
+      <view class="angle-grid">
+        <view class="angle-item" wx:for="{{angles}}" wx:key="index">
+          <view class="angle-icon-wrap" style="background:{{item.bg}}">
+            <text class="angle-icon">{{item.icon}}</text>
+          </view>
+          <text class="angle-name">{{item.name}}</text>
+          <text class="angle-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 常见问题 -->
+    <view class="card" style="margin:0 24rpx 24rpx">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>常见问题</text>
+      </view>
+      <view class="faq-item" wx:for="{{faqs}}" wx:key="index">
+        <view class="faq-q" bindtap="toggleFaq" data-index="{{index}}">
+          <text class="faq-q-text">{{item.q}}</text>
+          <text class="faq-arrow">{{item.open ? '∧' : '∨'}}</text>
+        </view>
+        <view class="faq-a" wx:if="{{item.open}}">
+          <text>{{item.a}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="bottom-btn-wrap">
+      <button class="btn-primary" bindtap="goHome">我已了解，开始拍摄</button>
+    </view>
+    <view style="height:40rpx"></view>
+  </scroll-view>
+</view>

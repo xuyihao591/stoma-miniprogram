@@ -1,0 +1,88 @@
+<!-- pages/doctor/model3d/model3d.wxml - 交互式3D模型查看 -->
+<view class="model3d-page">
+  <!-- 加载状态 -->
+  <view class="model-loading" wx:if="{{modelLoading}}">
+    <view class="ml-spinner"></view>
+    <text class="ml-text">3D模型加载中...</text>
+    <text class="ml-sub">glTF格式，支持旋转缩放</text>
+  </view>
+
+  <!-- 3D模型渲染区 -->
+  <view class="model-container {{modelLoading ? 'hidden' : ''}}">
+    <!-- 使用微信小程序内置 three-dimensional-model 组件 -->
+    <three-dimensional-model
+      id="model3d"
+      src="{{modelUrl}}"
+      style="width:100%;height:100%"
+      bindload="onModelLoad"
+      binderror="onModelError"
+      bindtouchstart="onTouchStart"
+      bindtouchmove="onTouchMove"
+      bindtouchend="onTouchEnd"
+      initial-theta="{{90}}"
+      initial-phi="{{30}}"
+    />
+
+    <!-- 控制按钮叠层 -->
+    <view class="controls-overlay">
+      <!-- 视角预设 -->
+      <view class="view-presets">
+        <view class="preset-btn {{activePreset === 'front' ? 'active' : ''}}" bindtap="setPreset" data-preset="front">正面</view>
+        <view class="preset-btn {{activePreset === 'top' ? 'active' : ''}}" bindtap="setPreset" data-preset="top">俯视</view>
+        <view class="preset-btn {{activePreset === 'side' ? 'active' : ''}}" bindtap="setPreset" data-preset="side">侧面</view>
+      </view>
+
+      <!-- 右侧工具 -->
+      <view class="tools-right">
+        <view class="tool-btn" bindtap="resetView">
+          <text class="tool-icon">⟳</text>
+          <text class="tool-label">重置</text>
+        </view>
+        <view class="tool-btn {{wireframe ? 'tool-active' : ''}}" bindtap="toggleWireframe">
+          <text class="tool-icon">⬡</text>
+          <text class="tool-label">网格</text>
+        </view>
+        <view class="tool-btn" bindtap="toggleMeasure">
+          <text class="tool-icon">📐</text>
+          <text class="tool-label">测量</text>
+        </view>
+        <view class="tool-btn" bindtap="saveScreenshot">
+          <text class="tool-icon">📷</text>
+          <text class="tool-label">截图</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 测量叠层 -->
+    <view class="measure-overlay" wx:if="{{measureMode}}">
+      <view class="measure-hint">点击模型上两点进行测量</view>
+      <view class="measure-result" wx:if="{{measureResult}}">
+        距离：{{measureResult}} mm
+      </view>
+    </view>
+
+    <!-- 底部指标卡 -->
+    <view class="bottom-metrics">
+      <scroll-view scroll-x class="metrics-scroll">
+        <view class="metrics-inner">
+          <view class="m-chip" wx:for="{{metrics}}" wx:key="index" style="border-color:{{item.abnormal ? '#E24B4A' : '#1D9E75'}}">
+            <text class="m-chip-label">{{item.label}}</text>
+            <text class="m-chip-value {{item.abnormal ? 'v-red' : ''}}">{{item.value}}{{item.unit}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 底部信息面板 -->
+  <view class="info-panel">
+    <view class="ip-row">
+      <text class="ip-patient">{{patientName}}</text>
+      <text class="ip-date">{{dateStr}}</text>
+    </view>
+    <view class="ip-buttons">
+      <button class="ip-btn ip-btn-secondary" bindtap="goBack">返回详情</button>
+      <button class="ip-btn ip-btn-primary" bindtap="goReview">开始审核</button>
+    </view>
+  </view>
+</view>

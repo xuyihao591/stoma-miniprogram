@@ -1,0 +1,188 @@
+/* pages/patient/consult/consult.wxss */
+.consult-page { background: #F5F7FA; min-height: 100vh; }
+
+.consult-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 24rpx 32rpx;
+  border-bottom: 1px solid rgba(74,144,226,0.1);
+}
+
+.ch-title { font-size: 32rpx; font-weight: 500; }
+
+.new-btn {
+  background: #4A90E2;
+  color: #fff;
+  padding: 12rpx 28rpx;
+  border-radius: 28rpx;
+  font-size: 26rpx;
+}
+
+.consult-item {
+  background: #fff;
+  margin: 16rpx 24rpx 0;
+  border-radius: 20rpx;
+  padding: 24rpx 28rpx;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.ci-left { flex: 1; display: flex; align-items: flex-start; gap: 12rpx; }
+
+.ci-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 8rpx;
+  background: #D3D1C7;
+  flex-shrink: 0;
+  margin-top: 10rpx;
+}
+
+.dot-new { background: #E24B4A; }
+
+.ci-title {
+  font-size: 28rpx;
+  color: #1A2332;
+  line-height: 1.5;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 380rpx;
+}
+
+.ci-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10rpx;
+}
+
+.ci-time { font-size: 22rpx; color: #B4B2A9; }
+
+.ci-status {
+  font-size: 22rpx;
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+}
+
+.replied { background: #E1F5EE; color: #0F6E56; }
+.pending { background: #FAEEDA; color: #854F0B; }
+
+/* 详情 */
+.consult-detail { background: #F5F7FA; min-height: 100vh; }
+
+.detail-header {
+  background: #fff;
+  padding: 20rpx 32rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  border-bottom: 1px solid rgba(74,144,226,0.1);
+}
+
+.back-btn { font-size: 36rpx; color: #4A90E2; }
+.detail-title { font-size: 30rpx; font-weight: 500; }
+
+.msg-bubble { padding: 24rpx 32rpx; }
+
+.patient-msg .bubble-content {
+  background: #4A90E2;
+  color: #fff;
+  border-radius: 20rpx 4rpx 20rpx 20rpx;
+  padding: 24rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  margin-bottom: 8rpx;
+  margin-left: 60rpx;
+}
+
+.doctor-msg .bubble-content {
+  background: #fff;
+  color: #1A2332;
+  border-radius: 4rpx 20rpx 20rpx 20rpx;
+  padding: 24rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  margin-bottom: 8rpx;
+}
+
+.bubble-time { font-size: 22rpx; color: #B4B2A9; }
+.patient-msg .bubble-time { text-align: right; display: block; }
+
+.doc-badge {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 12rpx;
+  font-size: 24rpx;
+  color: #8A9BB0;
+}
+
+.db-avatar {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 24rpx;
+  background: #E1F5EE;
+}
+
+.pending-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 40rpx;
+  font-size: 26rpx;
+  color: #8A9BB0;
+}
+
+.ph-spin {
+  width: 36rpx;
+  height: 36rpx;
+  border: 3rpx solid #E6F1FB;
+  border-top-color: #4A90E2;
+  border-radius: 18rpx;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.reply-input-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #fff;
+  padding: 16rpx 24rpx calc(16rpx + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  border-top: 1px solid rgba(74,144,226,0.1);
+}
+
+.reply-input {
+  flex: 1;
+  height: 72rpx;
+  background: #F5F7FA;
+  border-radius: 36rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+}
+
+.send-btn {
+  height: 72rpx;
+  padding: 0 28rpx;
+  background: #4A90E2;
+  color: #fff;
+  border-radius: 36rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.send-btn.disabled {
+  background: #B5D4F4;
+}

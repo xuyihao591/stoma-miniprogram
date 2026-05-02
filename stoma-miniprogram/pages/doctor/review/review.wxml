@@ -1,0 +1,118 @@
+<!-- pages/doctor/review/review.wxml - 审核操作页 -->
+<view class="review-page">
+  <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:calc(100vh - 160rpx)">
+    <!-- 评级选择 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar" style="background:#1D9E75"></view>
+        <text>审核结论</text>
+      </view>
+      <text class="section-desc">确认或修改AI评估等级</text>
+      <view class="severity-options">
+        <view
+          class="severity-opt {{selectedSeverity === item.key ? 'active-' + item.key : ''}}"
+          wx:for="{{severityOptions}}"
+          wx:for-item="item"
+          wx:key="key"
+          bindtap="selectSeverity"
+          data-key="{{item.key}}"
+        >
+          <view class="opt-dot" style="background:{{item.color}}"></view>
+          <text class="opt-label">{{item.label}}</text>
+          <text class="opt-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 关键指标确认/修改 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar" style="background:#1D9E75"></view>
+        <text>指标确认</text>
+        <text style="margin-left:auto;font-size:24rpx;color:#8A9BB0">可直接修改数值</text>
+      </view>
+      <view class="metric-edit-row" wx:for="{{metricEdits}}" wx:key="key">
+        <text class="mel-label">{{item.label}}</text>
+        <view class="mel-input-wrap">
+          <input
+            class="mel-input"
+            value="{{item.value}}"
+            type="digit"
+            bindinput="editMetric"
+            data-key="{{item.key}}"
+          />
+          <text class="mel-unit">{{item.unit}}</text>
+        </view>
+        <view class="mel-ai-val">AI: {{item.aiValue}}</view>
+      </view>
+    </view>
+
+    <!-- 医生意见 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar" style="background:#1D9E75"></view>
+        <text>医生意见</text>
+      </view>
+      <textarea
+        class="opinion-input"
+        placeholder="填写对患者的指导建议，将推送至患者端..."
+        value="{{doctorOpinion}}"
+        bindinput="onOpinionInput"
+        maxlength="1000"
+        auto-height
+      />
+      <text class="char-count">{{doctorOpinion.length}}/1000</text>
+    </view>
+
+    <!-- 护理建议快捷模板 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar" style="background:#1D9E75"></view>
+        <text>快捷模板</text>
+      </view>
+      <view class="template-list">
+        <view
+          class="template-item"
+          wx:for="{{templates}}"
+          wx:key="index"
+          bindtap="useTemplate"
+          data-text="{{item}}"
+        >
+          <text>{{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 随访计划 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar" style="background:#1D9E75"></view>
+        <text>下次随访时间</text>
+      </view>
+      <view class="followup-options">
+        <view
+          class="fo-item {{nextFollowup === item.days ? 'fo-active' : ''}}"
+          wx:for="{{followupOptions}}"
+          wx:for-item="item"
+          wx:key="days"
+          bindtap="setFollowup"
+          data-days="{{item.days}}"
+        >{{item.label}}</view>
+      </view>
+    </view>
+
+    <view style="height:20rpx"></view>
+  </scroll-view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-bar">
+    <button class="bb-reject" bindtap="rejectReport">退回修改</button>
+    <button class="bb-confirm {{(submitting || !doctorOpinion) ? 'bb-disabled' : ''}}"
+      disabled="{{submitting || !doctorOpinion}}"
+      bindtap="submitReview"
+      loading="{{submitting}}"
+    >
+      {{submitting ? '提交中...' : '确认并推送给患者'}}
+    </button>
+  </view>
+</view>

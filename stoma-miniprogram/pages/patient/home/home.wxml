@@ -1,0 +1,157 @@
+<!-- pages/patient/home/home.wxml - 首页/拍照/上传视频 -->
+<view class="page-wrap">
+  <!-- 顶部欢迎栏 -->
+  <view class="header-bar">
+    <view class="header-left">
+      <image class="avatar" src="{{userInfo.avatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+      <view>
+        <text class="welcome">你好，{{userInfo.name || '用户'}}</text>
+        <text class="sub-welcome">今天准时记录，助力早日康复</text>
+      </view>
+    </view>
+    <view class="notify-btn" bindtap="goConsult">
+      <text class="notify-icon">&#128172;</text>
+      <view wx:if="{{unreadCount > 0}}" class="notify-dot">{{unreadCount}}</view>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="content-scroll" enhanced="{{true}}" show-scrollbar="{{false}}">
+    <!-- 上次评估状态卡 -->
+    <view class="card status-card" wx:if="{{lastAssessment}}">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>最近评估</text>
+        <text class="see-all" bindtap="goFollowup">查看全部</text>
+      </view>
+      <view class="last-assess-row" bindtap="goReport" data-id="{{lastAssessment.id}}">
+        <image class="last-thumb" src="{{lastAssessment.imageUrl}}" mode="aspectFill"/>
+        <view class="last-info">
+          <view class="last-date">{{lastAssessment.dateStr}}</view>
+          <view class="last-tags">
+            <text class="tag {{lastAssessment.statusTag.cls}}">{{lastAssessment.statusTag.text}}</text>
+            <text class="tag tag-blue" wx:if="{{lastAssessment.expertConfirmed}}">专家已确认</text>
+          </view>
+          <view class="last-metrics">
+            <text>直径 {{lastAssessment.diameter}}mm</text>
+            <text>高度 {{lastAssessment.height}}mm</text>
+          </view>
+        </view>
+        <text class="arrow-icon">›</text>
+      </view>
+    </view>
+
+    <!-- 拍照/上传主操作区 -->
+    <view class="card upload-card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>提交新评估</text>
+      </view>
+
+      <!-- 已选媒体预览 -->
+      <block wx:if="{{mediaList.length > 0}}">
+        <scroll-view scroll-x class="media-scroll">
+          <view class="media-preview-list">
+            <view class="media-item" wx:for="{{mediaList}}" wx:key="index">
+              <image class="media-thumb" src="{{item.thumb}}" mode="aspectFill"/>
+              <view class="media-type-badge {{item.type === 'video' ? 'badge-video' : 'badge-image'}}">
+                <text>{{item.type === 'video' ? '视频' : '图片'}}</text>
+              </view>
+              <view class="media-del" bindtap="removeMedia" data-index="{{index}}">×</view>
+            </view>
+            <!-- 继续添加 -->
+            <view class="media-add-more" bindtap="showMediaActionSheet" wx:if="{{mediaList.length < 5}}">
+              <text class="add-icon">+</text>
+            </view>
+          </view>
+        </scroll-view>
+        <view class="media-hint">已选 {{mediaList.length}} 个文件（最多5个）</view>
+      </block>
+
+      <!-- 空状态：大上传区 -->
+      <view class="upload-zone" wx:else bindtap="showMediaActionSheet">
+        <view class="upload-zone-inner">
+          <view class="upload-circle">
+            <text class="camera-icon">&#128247;</text>
+          </view>
+          <text class="upload-main-text">拍摄 / 选择造口照片或视频</text>
+          <text class="upload-sub-text">支持图片和视频，建议多角度拍摄</text>
+        </view>
+      </view>
+
+      <!-- 症状描述 -->
+      <view class="form-item">
+        <text class="form-label">症状描述（可选）</text>
+        <textarea
+          class="symptom-input"
+          value="{{symptomDesc}}"
+          placeholder="如：造口周围红肿、渗液增多、有异味等..."
+          bindinput="onSymptomInput"
+          maxlength="300"
+          auto-height
+        />
+        <text class="char-count">{{symptomDesc.length}}/300</text>
+      </view>
+
+      <!-- 提交按钮 -->
+      <button
+        class="btn-primary submit-btn {{(mediaList.length === 0 || submitting) ? 'btn-disabled' : ''}}"
+        disabled="{{mediaList.length === 0 || submitting}}"
+        bindtap="submitAssessment"
+        loading="{{submitting}}"
+      >
+        {{submitting ? '正在提交...' : '提交AI评估'}}
+      </button>
+
+      <!-- 正在分析中的状态 -->
+      <view class="analyzing-banner" wx:if="{{analyzingId}}">
+        <view class="analyzing-spinner"></view>
+        <view class="analyzing-info">
+          <text class="analyzing-title">AI 分析中...</text>
+          <text class="analyzing-sub">预计 10-30 秒，完成后推送通知</text>
+        </view>
+        <text class="analyzing-link" bindtap="checkAnalyzing">查看进度</text>
+      </view>
+    </view>
+
+    <!-- 引导提示入口 -->
+    <view class="guide-entry card" bindtap="goGuide">
+      <view class="guide-left">
+        <text class="guide-icon">&#128214;</text>
+        <view>
+          <text class="guide-title">拍摄标准指南</text>
+          <text class="guide-desc">了解角度、光线、距离要求，提高分析准确率</text>
+        </view>
+      </view>
+      <text class="arrow-icon">›</text>
+    </view>
+
+    <!-- 健康提示 -->
+    <view class="card tips-card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>护理提示</text>
+      </view>
+      <view class="tip-item" wx:for="{{careTips}}" wx:key="index">
+        <text class="tip-dot">·</text>
+        <text class="tip-text">{{item}}</text>
+      </view>
+    </view>
+
+    <view style="height:40rpx"></view>
+  </scroll-view>
+</view>
+
+<!-- 进度弹窗 -->
+<view class="modal-mask" wx:if="{{showProgressModal}}" bindtap="closeProgressModal">
+  <view class="modal-box" catchtap="noop">
+    <text class="modal-title">分析进度</text>
+    <view class="progress-wrap">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width:{{analyzeProgress}}%"></view>
+      </view>
+      <text class="progress-text">{{analyzeProgress}}%</text>
+    </view>
+    <text class="progress-stage">{{analyzeStage}}</text>
+    <button class="btn-secondary" style="margin-top:32rpx" bindtap="closeProgressModal">知道了</button>
+  </view>
+</view>

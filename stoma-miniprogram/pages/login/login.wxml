@@ -1,0 +1,40 @@
+<!-- pages/login/login.wxml -->
+<view style="width:100%;min-height:100vh;background:#4A90E2;box-sizing:border-box;display:flex;flex-direction:column;">
+  <view style="display:flex;flex-direction:column;align-items:center;padding-top:120rpx;margin-bottom:60rpx;">
+    <view style="width:120rpx;height:120rpx;background:rgba(255,255,255,0.2);border-radius:36rpx;display:flex;align-items:center;justify-content:center;margin-bottom:20rpx;border:2rpx solid rgba(255,255,255,0.4);">
+      <text style="font-size:56rpx;color:#FFFFFF;">智</text>
+    </view>
+    <text style="font-size:44rpx;color:#FFFFFF;margin-bottom:12rpx;">造口智护</text>
+    <text style="font-size:26rpx;color:rgba(255,255,255,0.8);">智能造口护理管理平台</text>
+  </view>
+
+  <view style="width:680rpx;background:#FFFFFF;border-radius:32rpx;padding:48rpx 40rpx 40rpx;margin:0 auto;box-shadow:0 8rpx 40rpx rgba(37,99,184,0.15);">
+    <view style="display:flex;background:#F5F7FA;border-radius:24rpx;padding:6rpx;margin-bottom:48rpx;">
+      <view bindtap="switchRole" data-role="patient" style="flex:1;height:72rpx;display:flex;align-items:center;justify-content:center;border-radius:20rpx;font-size:28rpx;gap:10rpx;{{activeRole === 'patient' ? 'background:#FFFFFF;color:#4A90E2;font-weight:500;box-shadow:0 2rpx 8rpx rgba(74,144,226,0.15);' : 'color:#8A9BB0;'}}">
+        <text style="font-size:20rpx;">{{activeRole === 'patient' ? '●' : '○'}}</text>
+        <text>患者登录</text>
+      </view>
+      <view bindtap="switchRole" data-role="doctor" style="flex:1;height:72rpx;display:flex;align-items:center;justify-content:center;border-radius:20rpx;font-size:28rpx;gap:10rpx;{{activeRole === 'doctor' ? 'background:#FFFFFF;color:#4A90E2;font-weight:500;box-shadow:0 2rpx 8rpx rgba(74,144,226,0.15);' : 'color:#8A9BB0;'}}">
+        <text style="font-size:20rpx;">{{activeRole === 'doctor' ? '●' : '○'}}</text>
+        <text>医生登录</text>
+      </view>
+    </view>
+
+    <button bindtap="handleWxLogin" loading="{{loading}}" style="width:100%;height:96rpx;background:#07C160;color:#FFFFFF;border-radius:48rpx;font-size:32rpx;font-weight:500;display:flex;align-items:center;justify-content:center;gap:16rpx;border:none;margin-bottom:32rpx;">
+      <image src="/images/wx_icon.png" mode="aspectFit" style="width:40rpx;height:40rpx;"/>
+      <text>微信一键登录</text>
+    </button>
+
+    <view style="display:flex;align-items:center;flex-wrap:wrap;font-size:24rpx;gap:4rpx;">
+      <checkbox value="agree" checked="{{agreed}}" bindtap="toggleAgreement" style="transform:scale(0.8);margin-right:4rpx;"/>
+      <text style="color:#8A9BB0;">已阅读并同意</text>
+      <text bindtap="openPrivacy" style="color:#4A90E2;">《隐私政策》</text>
+      <text style="color:#8A9BB0;">和</text>
+      <text bindtap="openTerms" style="color:#4A90E2;">《用户协议》</text>
+    </view>
+  </view>
+
+  <view style="margin-top:40rpx;font-size:22rpx;color:#8A9BB0;text-align:center;">
+    <text>本平台仅供辅助参考，不代替专业医疗建议</text>
+  </view>
+</view>

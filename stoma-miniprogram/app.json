@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/patient/home/home",
+    "pages/patient/guide/guide",
+    "pages/patient/profile/profile",
+    "pages/patient/report/report",
+    "pages/patient/followup/followup",
+    "pages/patient/consult/consult",
+    "pages/doctor/list/list",
+    "pages/doctor/model3d/model3d",
+    "pages/doctor/detail/detail",
+    "pages/doctor/review/review",
+    "pages/doctor/patients/patients",
+    "pages/doctor/stats/stats"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4A90E2",
+    "navigationBarTitleText": "造口智护",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F7FA"
+  },
+  "tabBar": {
+    "color": "#8A9BB0",
+    "selectedColor": "#4A90E2",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/patient/home/home",
+        "text": "首页",
+        "iconPath": "images/tab_home.png",
+        "selectedIconPath": "images/tab_home_active.png"
+      },
+      {
+        "pagePath": "pages/patient/followup/followup",
+        "text": "随访",
+        "iconPath": "images/tab_record.png",
+        "selectedIconPath": "images/tab_record_active.png"
+      },
+      {
+        "pagePath": "pages/patient/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab_user.png",
+        "selectedIconPath": "images/tab_user_active.png"
+      }
+    ],
+    "custom": false
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,98 @@
+<!-- pages/doctor/detail/detail.wxml - 评估详情页 -->
+<view class="detail-page">
+  <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:100vh">
+    <!-- 患者信息 -->
+    <view class="patient-banner card">
+      <view class="pb-left">
+        <image class="pb-avatar" src="{{report.patientAvatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+        <view>
+          <text class="pb-name">{{report.patientName}}</text>
+          <text class="pb-meta">{{report.stomaType}} · 手术日期 {{report.surgeryDate}}</text>
+        </view>
+      </view>
+      <view class="pb-right" bindtap="goPatientHistory" data-id="{{report.patientId}}">
+        <text class="history-link">随访历史 ›</text>
+      </view>
+    </view>
+
+    <!-- 图片 & 3D入口 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>原始资料</text>
+      </view>
+      <scroll-view scroll-x class="media-scroll-h">
+        <view class="media-row">
+          <view class="media-cell" wx:for="{{report.images}}" wx:key="index">
+            <image class="detail-img" src="{{item}}" mode="aspectFill"
+              bindtap="previewImage" data-current="{{item}}" data-urls="{{report.images}}"/>
+            <text class="media-tag">图片{{index+1}}</text>
+          </view>
+          <view class="media-cell" wx:if="{{report.videoUrl}}">
+            <video class="detail-video" src="{{report.videoUrl}}" controls show-center-play-btn/>
+            <text class="media-tag">视频</text>
+          </view>
+        </view>
+      </scroll-view>
+
+      <!-- 3D模型入口 -->
+      <view class="model3d-entry {{report.modelUrl ? '' : 'disabled'}}" bindtap="go3dModel">
+        <view class="model3d-icon">3D</view>
+        <view>
+          <text class="model3d-title">{{report.modelUrl ? '查看3D重建模型' : '3D模型生成中...'}}</text>
+          <text class="model3d-sub">{{report.modelUrl ? 'glTF格式，可旋转缩放测量' : '通常需要1-3分钟'}}</text>
+        </view>
+        <text class="arrow-icon" wx:if="{{report.modelUrl}}">›</text>
+        <view class="mini-spinner" wx:else></view>
+      </view>
+    </view>
+
+    <!-- AI分析指标 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>AI分析指标</text>
+        <view class="ai-label">AI</view>
+      </view>
+      <view class="metrics-grid">
+        <view class="metric-item" wx:for="{{report.metrics}}" wx:key="index">
+          <text class="metric-label">{{item.label}}</text>
+          <view class="metric-val-row">
+            <text class="metric-value {{item.abnormal ? 'v-red' : ''}}">{{item.value}}</text>
+            <text class="metric-unit">{{item.unit}}</text>
+          </view>
+          <text class="metric-ref">参考：{{item.ref}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 患者症状描述 -->
+    <view class="card" wx:if="{{report.symptomDesc}}">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>患者描述</text>
+      </view>
+      <view class="symptom-box">{{report.symptomDesc}}</view>
+    </view>
+
+    <!-- AI结论 -->
+    <view class="card">
+      <view class="card-title">
+        <view class="card-title-bar"></view>
+        <text>AI分析结论</text>
+        <view class="ai-label">AI生成</view>
+      </view>
+      <view class="ai-conclusion">{{report.aiConclusion}}</view>
+      <view class="severity-row">
+        <text class="sr-label">AI评级：</text>
+        <view class="tag {{report.severityTag.cls}}">{{report.severityTag.text}}</view>
+      </view>
+    </view>
+
+    <!-- 底部审核入口 -->
+    <view class="review-cta">
+      <button class="btn-review" bindtap="goReview">开始审核</button>
+    </view>
+    <view style="height:40rpx"></view>
+  </scroll-view>
+</view>

@@ -1,0 +1,87 @@
+<!-- pages/patient/consult/consult.wxml - 咨询入口 -->
+<view class="consult-page">
+  <!-- 咨询列表 -->
+  <view class="consult-list-mode" wx:if="{{!showDetail}}">
+    <view class="consult-header">
+      <text class="ch-title">在线咨询</text>
+      <view class="new-btn" bindtap="showNewConsult">+ 新建咨询</view>
+    </view>
+
+    <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:calc(100vh - 100rpx)"
+      refresher-enabled bindrefresherrefresh="loadList" refresher-triggered="{{refreshing}}">
+
+      <view wx:if="{{list.length === 0}}" class="empty-state" style="padding-top:120rpx">
+        <text style="font-size:80rpx">💬</text>
+        <text class="empty-text" style="margin-top:20rpx">暂无咨询记录</text>
+        <button class="btn-primary" style="width:320rpx;margin-top:32rpx;height:80rpx;font-size:28rpx" bindtap="showNewConsult">发起咨询</button>
+      </view>
+
+      <view class="consult-item" wx:for="{{list}}" wx:key="id" bindtap="openDetail" data-id="{{item.id}}">
+        <view class="ci-left">
+          <view class="ci-dot {{item.hasNewReply ? 'dot-new' : ''}}"></view>
+          <text class="ci-title">{{item.question}}</text>
+        </view>
+        <view class="ci-right">
+          <text class="ci-time">{{item.timeStr}}</text>
+          <view class="ci-status {{item.replied ? 'replied' : 'pending'}}">
+            {{item.replied ? '已回复' : '待回复'}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 详情/回复 -->
+  <view class="consult-detail" wx:if="{{showDetail && current}}">
+    <view class="detail-header">
+      <text bindtap="backToList" class="back-btn">‹ 返回</text>
+      <text class="detail-title">咨询详情</text>
+    </view>
+    <scroll-view scroll-y enhanced style="height:calc(100vh - 200rpx)">
+      <view class="msg-bubble patient-msg">
+        <view class="bubble-content">{{current.question}}</view>
+        <text class="bubble-time">{{current.timeStr}}</text>
+      </view>
+      <view class="msg-bubble doctor-msg" wx:if="{{current.replied}}">
+        <view class="doc-badge">
+          <image src="{{current.doctorAvatar || '/images/default_avatar.png'}}" class="db-avatar" mode="aspectFill"/>
+          <text>{{current.doctorName || '专家'}}</text>
+        </view>
+        <view class="bubble-content">{{current.reply}}</view>
+        <text class="bubble-time">{{current.replyTimeStr}}</text>
+      </view>
+      <view wx:if="{{!current.replied}}" class="pending-hint">
+        <view class="ph-spin"></view>
+        <text>专家正在处理，通常24小时内回复</text>
+      </view>
+    </scroll-view>
+    <!-- 追问输入框 -->
+    <view class="reply-input-bar">
+      <input class="reply-input" placeholder="追加问题..." value="{{followUpText}}" bindinput="onFollowUpInput"/>
+      <view class="send-btn {{followUpText ? '' : 'disabled'}}" bindtap="sendFollowUp">发送</view>
+    </view>
+  </view>
+</view>
+
+<!-- 新建咨询弹窗 -->
+<view class="modal-mask" wx:if="{{showNewModal}}" bindtap="closeNewModal">
+  <view class="modal-box" catchtap="noop">
+    <text class="modal-title">发起咨询</text>
+    <textarea
+      class="symptom-input"
+      placeholder="请描述您的问题或症状，越详细越好..."
+      value="{{newQuestion}}"
+      bindinput="onNewInput"
+      maxlength="500"
+      auto-height
+      style="min-height:200rpx;background:#F5F7FA;border-radius:16rpx;padding:20rpx;font-size:28rpx"
+    />
+    <text class="char-count" style="text-align:right;display:block;margin-bottom:24rpx;color:#B4B2A9;font-size:22rpx">{{newQuestion.length}}/500</text>
+    <view style="display:flex;gap:20rpx">
+      <button class="btn-secondary" bindtap="closeNewModal">取消</button>
+      <button class="btn-primary {{newQuestion.length < 5 ? 'btn-disabled' : ''}}"
+        disabled="{{newQuestion.length < 5}}"
+        bindtap="submitConsult" loading="{{submitting}}">提交</button>
+    </view>
+  </view>
+</view>

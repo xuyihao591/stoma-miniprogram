@@ -1,0 +1,20 @@
+# 微信小程序
+dist/
+node_modules/
+.DS_Store
+*.log
+
+# 微信开发者工具
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 上传时的临时文件
+*.wxt
+*.wxvp
+
+# 其他
+*.bak

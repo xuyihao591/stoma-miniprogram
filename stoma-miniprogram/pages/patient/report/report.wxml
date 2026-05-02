@@ -1,0 +1,156 @@
+<!-- pages/patient/report/report.wxml - AI评估报告页 -->
+<view class="report-page">
+  <view wx:if="{{loading}}" class="loading-wrap">
+    <view class="load-spinner"></view>
+    <text style="margin-top:20rpx;color:#8A9BB0">加载报告中...</text>
+  </view>
+
+  <block wx:elif="{{report}}">
+    <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:100vh">
+      <!-- 报告头部 -->
+      <view class="report-header {{report.severity === 'severe' ? 'header-danger' : report.severity === 'moderate' ? 'header-warn' : 'header-normal'}}">
+        <view class="report-meta">
+          <text class="report-date">{{report.dateStr}}</text>
+          <view class="report-badge {{report.severity}}">
+            <text>{{report.severityLabel}}</text>
+          </view>
+        </view>
+        <text class="report-id">评估编号：{{report.id}}</text>
+        <view class="expert-confirm" wx:if="{{report.expertConfirmed}}">
+          <text class="confirm-icon">✓</text>
+          <text>{{report.expertName}} 已审核确认</text>
+        </view>
+        <view class="pending-confirm" wx:else>
+          <text class="pending-icon">⏳</text>
+          <text>等待专家审核中...</text>
+        </view>
+      </view>
+
+      <!-- 原始图片 -->
+      <view class="card">
+        <view class="card-title">
+          <view class="card-title-bar"></view>
+          <text>原始照片</text>
+        </view>
+        <scroll-view scroll-x class="img-scroll">
+          <view class="img-list">
+            <image
+              wx:for="{{report.images}}"
+              wx:key="index"
+              class="report-img"
+              src="{{item}}"
+              mode="aspectFill"
+              bindtap="previewImage"
+              data-current="{{item}}"
+              data-urls="{{report.images}}"
+            />
+          </view>
+        </scroll-view>
+      </view>
+
+      <!-- 3D模型查看（患者只读） -->
+      <view class="card" wx:if="{{report.modelUrl}}">
+        <view class="card-title">
+          <view class="card-title-bar"></view>
+          <text>3D重建模型</text>
+          <view class="tag tag-blue" style="margin-left:auto">glTF</view>
+        </view>
+        <view class="model-preview">
+          <three-dimensional-model
+            src="{{report.modelUrl}}"
+            style="width:100%;height:500rpx"
+          />
+          <view class="model-hint">
+            <text>支持手势旋转、缩放查看</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 关键指标 -->
+      <view class="card">
+        <view class="card-title">
+          <view class="card-title-bar"></view>
+          <text>关键指标</text>
+        </view>
+        <view class="metrics-grid">
+          <view class="metric-item" wx:for="{{report.metrics}}" wx:key="index">
+            <text class="metric-label">{{item.label}}</text>
+            <view class="metric-value-wrap">
+              <text class="metric-value {{item.abnormal ? 'value-abnormal' : ''}}">{{item.value}}</text>
+              <text class="metric-unit">{{item.unit}}</text>
+            </view>
+            <view class="metric-ref">参考：{{item.ref}}</view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 颜色分析 -->
+      <view class="card" wx:if="{{report.colorAnalysis}}">
+        <view class="card-title">
+          <view class="card-title-bar"></view>
+          <text>颜色热力图分析</text>
+        </view>
+        <image src="{{report.colorAnalysis.heatmapUrl}}" mode="widthFix" style="width:100%;border-radius:12rpx"/>
+        <view class="color-legend">
+          <view class="legend-item" wx:for="{{report.colorAnalysis.legend}}" wx:key="index">
+            <view class="legend-color" style="background:{{item.color}}"></view>
+            <text>{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- AI分析结论 -->
+      <view class="card">
+        <view class="card-title">
+          <view class="card-title-bar"></view>
+          <text>AI分析结论</text>
+          <view class="tag tag-blue" style="margin-left:auto">AI生成</view>
+        </view>
+        <view class="conclusion-text">{{report.aiConclusion}}</view>
+      </view>
+
+      <!-- 专家意见 -->
+      <view class="card expert-card" wx:if="{{report.expertComment}}">
+        <view class="card-title">
+          <view class="card-title-bar" style="background:#1D9E75"></view>
+          <text>专家意见</text>
+          <view class="tag tag-green" style="margin-left:auto">已审核</view>
+        </view>
+        <view class="expert-info">
+          <image class="expert-avatar" src="{{report.expertAvatar || '/images/default_avatar.png'}}" mode="aspectFill"/>
+          <view>
+            <text class="expert-name">{{report.expertName}}</text>
+            <text class="expert-dept">{{report.expertDept}}</text>
+          </view>
+        </view>
+        <view class="expert-comment">{{report.expertComment}}</view>
+        <view class="expert-advice" wx:if="{{report.advice}}">
+          <text class="advice-title">护理建议：</text>
+          <text class="advice-content">{{report.advice}}</text>
+        </view>
+      </view>
+
+      <!-- 历史对比入口 -->
+      <view class="card compare-entry" bindtap="goCompare">
+        <text class="compare-icon">📊</text>
+        <view>
+          <text class="compare-title">查看愈合趋势</text>
+          <text class="compare-sub">与历史记录对比分析</text>
+        </view>
+        <text class="arrow-icon">›</text>
+      </view>
+
+      <!-- 咨询入口 -->
+      <view class="consult-banner" bindtap="goConsult">
+        <text class="consult-icon">💬</text>
+        <view>
+          <text class="consult-title">有疑问？发起在线咨询</text>
+          <text class="consult-sub">专家24小时内回复</text>
+        </view>
+        <text class="arrow-icon" style="color:#FFFFFF">›</text>
+      </view>
+
+      <view style="height:60rpx"></view>
+    </scroll-view>
+  </block>
+</view>

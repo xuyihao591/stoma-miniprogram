@@ -1,0 +1,4 @@
+/* pages/login/login.wxss - 最小化样式，避免干扰 */
+button::after {
+  border: none;
+}

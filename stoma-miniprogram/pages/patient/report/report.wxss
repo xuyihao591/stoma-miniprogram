@@ -1,0 +1,209 @@
+/* pages/patient/report/report.wxss */
+.report-page { background: #F5F7FA; min-height: 100vh; }
+
+.load-spinner {
+  width: 60rpx; height: 60rpx;
+  border: 4rpx solid #E6F1FB;
+  border-top-color: #4A90E2;
+  border-radius: 30rpx;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.report-header {
+  padding: 40rpx 32rpx;
+  margin-bottom: 0;
+}
+
+.header-normal { background: #4A90E2; }
+.header-warn   { background: #EF9F27; }
+.header-danger { background: #E24B4A; }
+
+.report-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.report-date {
+  font-size: 28rpx;
+  color: rgba(255,255,255,0.85);
+}
+
+.report-badge {
+  padding: 6rpx 20rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  color: #fff;
+  background: rgba(255,255,255,0.25);
+}
+
+.report-id {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 16rpx;
+}
+
+.expert-confirm, .pending-confirm {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  font-size: 26rpx;
+  color: rgba(255,255,255,0.9);
+}
+
+.confirm-icon {
+  width: 36rpx; height: 36rpx;
+  background: rgba(255,255,255,0.3);
+  border-radius: 18rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20rpx;
+}
+
+.img-scroll { white-space: nowrap; }
+.img-list { display: flex; gap: 16rpx; }
+
+.report-img {
+  width: 280rpx;
+  height: 280rpx;
+  border-radius: 16rpx;
+  background: #E6F1FB;
+  flex-shrink: 0;
+}
+
+.model-preview { position: relative; }
+
+.model-hint {
+  text-align: center;
+  font-size: 24rpx;
+  color: #8A9BB0;
+  margin-top: 12rpx;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16rpx;
+}
+
+.metric-item {
+  background: #F5F7FA;
+  border-radius: 16rpx;
+  padding: 20rpx;
+}
+
+.metric-label {
+  display: block;
+  font-size: 24rpx;
+  color: #8A9BB0;
+  margin-bottom: 8rpx;
+}
+
+.metric-value-wrap { display: flex; align-items: baseline; gap: 4rpx; margin-bottom: 6rpx; }
+
+.metric-value {
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #1A2332;
+}
+
+.value-abnormal { color: #E24B4A; }
+
+.metric-unit { font-size: 22rpx; color: #8A9BB0; }
+.metric-ref { font-size: 22rpx; color: #B4B2A9; }
+
+.color-legend {
+  display: flex;
+  gap: 20rpx;
+  flex-wrap: wrap;
+  margin-top: 16rpx;
+}
+
+.legend-item { display: flex; align-items: center; gap: 8rpx; font-size: 24rpx; color: #5F5E5A; }
+
+.legend-color { width: 24rpx; height: 24rpx; border-radius: 4rpx; }
+
+.conclusion-text {
+  font-size: 28rpx;
+  color: #1A2332;
+  line-height: 1.8;
+  background: #F5F7FA;
+  padding: 24rpx;
+  border-radius: 16rpx;
+}
+
+.expert-card { border: 2rpx solid #E1F5EE; }
+
+.expert-info {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.expert-avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 36rpx;
+  background: #E1F5EE;
+}
+
+.expert-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #1A2332;
+}
+
+.expert-dept {
+  display: block;
+  font-size: 24rpx;
+  color: #8A9BB0;
+  margin-top: 4rpx;
+}
+
+.expert-comment {
+  font-size: 28rpx;
+  color: #1A2332;
+  line-height: 1.8;
+  margin-bottom: 16rpx;
+}
+
+.expert-advice {
+  background: #E1F5EE;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 26rpx;
+}
+
+.advice-title { font-weight: 500; color: #0F6E56; }
+.advice-content { color: #085041; }
+
+.compare-entry {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 28rpx 32rpx;
+}
+.compare-icon { font-size: 44rpx; }
+.compare-title { display: block; font-size: 30rpx; font-weight: 500; color: #1A2332; }
+.compare-sub { display: block; font-size: 24rpx; color: #8A9BB0; margin-top: 4rpx; }
+
+.consult-banner {
+  margin: 0 24rpx 24rpx;
+  background: #4A90E2;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+.consult-icon { font-size: 44rpx; }
+.consult-title { display: block; font-size: 30rpx; font-weight: 500; color: #fff; }
+.consult-sub { display: block; font-size: 24rpx; color: rgba(255,255,255,0.8); margin-top: 4rpx; }
+
+.arrow-icon { font-size: 40rpx; color: #B4B2A9; margin-left: auto; }

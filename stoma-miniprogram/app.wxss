@@ -1,0 +1,130 @@
+/* app.wxss - 全局样式 */
+page {
+  background-color: #F5F7FA;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  font-size: 28rpx;
+  color: #1A2332;
+  box-sizing: border-box;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ---- 公共布局 ---- */
+.container {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-view-full {
+  flex: 1;
+}
+
+/* ---- 卡片 ---- */
+.card {
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin: 0 24rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(74, 144, 226, 0.08);
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 500;
+  color: #1A2332;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.card-title-bar {
+  width: 6rpx;
+  height: 32rpx;
+  background: #4A90E2;
+  border-radius: 3rpx;
+  margin-right: 16rpx;
+}
+
+/* ---- 按钮 ---- */
+.btn-primary {
+  width: 100%;
+  height: 88rpx;
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.btn-primary::after { border: none; }
+
+.btn-secondary {
+  width: 100%;
+  height: 88rpx;
+  background: #FFFFFF;
+  color: #4A90E2;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  border: 2rpx solid #4A90E2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary::after { border: none; }
+
+.btn-danger { background: #E24B4A; color: #fff; border: none; }
+.btn-success { background: #1D9E75; color: #fff; border: none; }
+
+/* ---- 标签 ---- */
+.tag {
+  display: inline-block;
+  padding: 4rpx 16rpx;
+  border-radius: 24rpx;
+  font-size: 22rpx;
+}
+.tag-blue   { background: #E6F1FB; color: #185FA5; }
+.tag-green  { background: #E1F5EE; color: #0F6E56; }
+.tag-red    { background: #FCEBEB; color: #A32D2D; }
+.tag-amber  { background: #FAEEDA; color: #854F0B; }
+.tag-gray   { background: #F1EFE8; color: #5F5E5A; }
+
+/* ---- 空状态 ---- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120rpx 48rpx;
+  color: #8A9BB0;
+}
+.empty-icon { width: 160rpx; height: 160rpx; margin-bottom: 32rpx; opacity: 0.5; }
+.empty-text { font-size: 28rpx; color: #8A9BB0; }
+
+/* ---- 分割线 ---- */
+.divider {
+  height: 1px;
+  background: rgba(74, 144, 226, 0.1);
+  margin: 24rpx 0;
+}
+
+/* ---- Loading ---- */
+.loading-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx;
+  color: #8A9BB0;
+  font-size: 26rpx;
+}
+
+/* ---- 紧急程度 ---- */
+.urgency-high   { background: #FCEBEB; color: #A32D2D; }
+.urgency-medium { background: #FAEEDA; color: #854F0B; }
+.urgency-low    { background: #EAF3DE; color: #3B6D11; }
