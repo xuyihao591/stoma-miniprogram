@@ -84,5 +84,12 @@ Page({
   async logout() {
     const ok = await util.confirm('确认退出', '退出后需要重新登录')
     if (ok) app.logout()
+  },
+
+  switchRole() {
+    // 切换到医生端
+    app.globalData.role = 'doctor'
+    wx.setStorageSync('role', 'doctor')
+    wx.reLaunch({ url: '/pages/doctor/patients/patients' })
   }
 })

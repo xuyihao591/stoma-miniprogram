@@ -70,6 +70,12 @@
         <text class="action-arrow">›</text>
       </view>
       <view class="divider"></view>
+      <view class="action-row" bindtap="switchRole">
+        <text class="action-icon">🔄</text>
+        <text class="action-label">切换为患者在端</text>
+        <text class="action-arrow">›</text>
+      </view>
+      <view class="divider"></view>
       <view class="action-row logout-row" bindtap="logout">
         <text class="action-icon">🚪</text>
         <text class="action-label" style="color:#E24B4A">退出登录</text>
