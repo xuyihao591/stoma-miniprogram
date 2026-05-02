@@ -1,5 +1,17 @@
 <!-- pages/doctor/detail/detail.wxml - 评估详情页 -->
 <view class="detail-page">
+  <!-- 悬浮操作栏 -->
+  <view class="float-action-bar">
+    <view class="fab-btn fab-switch" bindtap="switchRole">
+      <text class="fab-icon">🔄</text>
+      <text class="fab-text">切换</text>
+    </view>
+    <view class="fab-btn fab-logout" bindtap="logout">
+      <text class="fab-icon">🚪</text>
+      <text class="fab-text">退出</text>
+    </view>
+  </view>
+
   <scroll-view scroll-y enhanced show-scrollbar="{{false}}" style="height:100vh">
     <!-- 患者信息 -->
     <view class="patient-banner card">

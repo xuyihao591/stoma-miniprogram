@@ -12,6 +12,18 @@
     </view>
   </view>
 
+  <!-- 悬浮操作栏 -->
+  <view class="float-action-bar">
+    <view class="fab-btn fab-switch" bindtap="switchRole">
+      <text class="fab-icon">🔄</text>
+      <text class="fab-text">切换</text>
+    </view>
+    <view class="fab-btn fab-logout" bindtap="logout">
+      <text class="fab-icon">🚪</text>
+      <text class="fab-text">退出</text>
+    </view>
+  </view>
+
   <!-- 筛选栏 -->
   <view class="filter-bar">
     <view class="filter-tabs">

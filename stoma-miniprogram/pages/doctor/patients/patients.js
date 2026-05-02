@@ -1,4 +1,5 @@
 // pages/doctor/patients/patients.js
+const app = getApp()
 const api = require('../../../utils/api')
 const util = require('../../../utils/util')
 
@@ -16,7 +17,6 @@ Page({
     this.loadList()
   },
   loadDoctorAvatar() {
-    const app = getApp()
     const userInfo = app.globalData.userInfo || {}
     this.setData({ doctorAvatar: userInfo.avatar || '' })
   },
@@ -68,5 +68,18 @@ Page({
   },
   onRefresh() { this.setData({ refreshing: true }); this.loadList() },
   goHistory(e) { wx.navigateTo({ url: `/pages/doctor/detail/detail?id=${e.currentTarget.dataset.id}` }) },
-  goProfile() { wx.navigateTo({ url: '/pages/doctor/profile/profile' }) }
+  goProfile() { wx.navigateTo({ url: '/pages/doctor/profile/profile' }) },
+
+  // 切换到患者端
+  switchRole() {
+    app.globalData.role = 'patient'
+    wx.setStorageSync('role', 'patient')
+    wx.switchTab({ url: '/pages/patient/home/home' })
+  },
+
+  // 退出登录
+  async logout() {
+    const ok = await util.confirm('确认退出', '退出后需要重新登录')
+    if (ok) app.logout()
+  }
 })

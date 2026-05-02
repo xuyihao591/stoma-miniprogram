@@ -8,6 +8,18 @@
     </view>
   </view>
 
+  <!-- 悬浮操作栏：退出/切换身份 -->
+  <view class="float-action-bar">
+    <view class="fab-btn fab-switch" bindtap="switchRole">
+      <text class="fab-icon">🔄</text>
+      <text class="fab-text">切换患者端</text>
+    </view>
+    <view class="fab-btn fab-logout" bindtap="logout">
+      <text class="fab-icon">🚪</text>
+      <text class="fab-text">退出登录</text>
+    </view>
+  </view>
+
   <view class="search-bar-wrap">
     <input class="search-input" placeholder="搜索患者姓名..." bindinput="onSearch" value="{{searchText}}"/>
   </view>

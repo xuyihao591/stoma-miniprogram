@@ -1,4 +1,5 @@
 // pages/doctor/model3d/model3d.js
+const app = getApp()
 const api = require('../../../utils/api')
 const util = require('../../../utils/util')
 
@@ -131,5 +132,18 @@ Page({
     wx.navigateTo({
       url: `/pages/doctor/review/review?id=${this.data.assessmentId}`
     })
+  },
+
+  // 切换到患者端
+  switchRole() {
+    app.globalData.role = 'patient'
+    wx.setStorageSync('role', 'patient')
+    wx.switchTab({ url: '/pages/patient/home/home' })
+  },
+
+  // 退出登录
+  async logout() {
+    const ok = await util.confirm('确认退出', '退出后需要重新登录')
+    if (ok) app.logout()
   }
 })
